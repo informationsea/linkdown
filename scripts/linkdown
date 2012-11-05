@@ -1,0 +1,4 @@
+import linkdown
+
+if __name__ == '__main__':
+    linkdown._main()
