@@ -8,6 +8,8 @@ import subprocess
 import sys
 import os
 
+import linkdown.htmlhelper
+
 def convertcmd(options):
     """
     
@@ -68,6 +70,7 @@ def convert_with_external_program(program):
 def convert_markdown2html(source, templatedir, markdown_template):
     options=dict()
     options['content'] = markdown.markdown(source)
+    options['title'] = linkdown.htmlhelper.get_h1(options['content'])
     return convert_jinja2html(file(os.path.join(templatedir, markdown_template)).read(), templatedir, options)
 
 def convert_jinja2html(source, templatedir, options=dict()):
