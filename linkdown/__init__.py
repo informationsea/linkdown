@@ -17,10 +17,10 @@ def convertcmd(options):
     - `options`:
     """
 
-    convert(options.format, options.source, options.output, options.templates, options.markdown_template)
+    convert(options.format, options.source, options.output, options.templates, options.markdown_template, options.compress)
 
 
-def convert(format, source, output, templates, markdown_template):
+def convert(format, source, output, templates, markdown_template, compress):
     """
     
     Arguments:
@@ -43,9 +43,9 @@ def convert(format, source, output, templates, markdown_template):
     if format == 'less':
         output_data = convert_with_external_program(['lessc', source.name])
     elif format == 'jinja2':
-        output_data = convert_jinja2html(source.read(), templates)
+        output_data = convert_jinja2html(source.read(), templates, compress)
     elif format == 'markdown':
-        output_data = convert_markdown2html(source.read(), templates, markdown_template)
+        output_data = convert_markdown2html(source.read(), templates, markdown_template, compress)
     elif format == 'coffeescript':
         output_data = convert_with_external_program(['coffee', '-pb', source.name])
     else:
@@ -67,13 +67,13 @@ def convert_with_external_program(program):
     return out
 
 
-def convert_markdown2html(source, templatedir, markdown_template):
+def convert_markdown2html(source, templatedir, markdown_template, compress):
     options=dict()
     options['content'] = markdown.markdown(source)
     options['title'] = linkdown.htmlhelper.get_h1(options['content'])
-    return convert_jinja2html(file(os.path.join(templatedir, markdown_template)).read(), templatedir, options)
+    return convert_jinja2html(file(os.path.join(templatedir, markdown_template)).read(), templatedir, options, compress)
 
-def convert_jinja2html(source, templatedir, options=dict()):
+def convert_jinja2html(source, templatedir, options=dict(), compress=False):
     """
     
     Arguments:
@@ -83,7 +83,10 @@ def convert_jinja2html(source, templatedir, options=dict()):
 
     env = jinja2.Environment(loader=jinja2.ChoiceLoader([jinja2.DictLoader({'inputtemplate':source}),
                                                          jinja2.FileSystemLoader(templatedir)]))
-    return env.get_template('inputtemplate').render(**options)
+    output = env.get_template('inputtemplate').render(**options)
+    if compress:
+        return linkdown.htmlhelper.compress_html(output)
+    return output
 
 def runserver(options):
     """
@@ -155,7 +158,7 @@ def convertall(options):
             convert('guess',
                     file(os.path.join(options.sourcedir, relpath), 'rb'),
                     file(os.path.join(options.destdir, suggest_newfilename(relpath)), 'wb'),
-                    options.templates, options.markdown_template)
+                    options.templates, options.markdown_template, options.compress)
 
 
 def _main():
@@ -166,6 +169,7 @@ def _main():
     parser_ch.set_defaults(which='convert')
     parser_ch.add_argument('source', type=argparse.FileType('r'), help='Source file')
     parser_ch.add_argument('output', type=argparse.FileType('w'), help='Output file (default: stdout)', nargs='?', default=sys.stdout)
+    parser_ch.add_argument('--compress', help='Compress output', action='store_true')
     parser_ch.add_argument('--templates', help='Root directory for jinja2 (default: %(default)s)', nargs='?', default='./source')
     parser_ch.add_argument('--markdown-template', help='Jinja2 Template HTML for Markdown. Relative path from templates directory (default: %(default)s)', default='templates/markdown.html')
     parser_ch.add_argument('--format', choices=('guess', 'markdown', 'jinja2', 'LESS'), default='guess', help='Input file format (default:%(default)s)')
@@ -186,6 +190,7 @@ def _main():
     parser_all.add_argument('destdir', help='Destination directory')
     parser_all.add_argument('--exclude-suffix', default='.xcf,.psd,.DS_Store,.git,.hg,.svn', help='separated by comma defualt:%(default)s')
     parser_all.add_argument('--exclude-prefix', default='templates', help='separated by comma defualt:%(default)s')
+    parser_all.add_argument('--compress', help='Compress output', action='store_true')
     parser_all.add_argument('--templates', help='Root directory for jinja2 (default: %(default)s)', default='./source')
     parser_all.add_argument('--markdown-template', help='Jinja2 Template HTML for Markdown. Relative path from templates directory (default: %(default)s)', default='templates/markdown.html')
 
