@@ -4,6 +4,7 @@
 import argparse
 import jinja2
 import markdown
+import subprocess
 import sys
 import os
 
@@ -29,29 +30,47 @@ def convert(format, source, output, templates, markdown_template):
             format = 'less'
         elif source.name.lower().endswith('html'):
             format = 'jinja2'
-        elif source.name.lower().endswith('md'):
+        elif source.name.lower().endswith('md') or source.name.lower().endswith('markdown') :
             format = 'markdown'
+        elif source.name.lower().endswith('coffeescript') or source.name.lower().endswith('coffee') :
+            format = 'coffeescript'
         else:
             format = 'copy'
-            #sys.exit('Unknown file type:'+source.name)
+            #print 'Unknown file type:'+source.name
 
     if format == 'less':
-        raise NotImplementedError
-        output_data = convert_less2css(source.read())
+        output_data = convert_with_external_program(['lessc', source.name])
     elif format == 'jinja2':
         output_data = convert_jinja2html(source.read(), templates)
     elif format == 'markdown':
-        raise NotImplementedError
-        output_data = convert_markdown2html(source.read(), templates, markdown_tempalte)
+        output_data = convert_markdown2html(source.read(), templates, markdown_template)
     elif format == 'coffeescript':
-        raise NotImplementedError
-        output_data = convert_markdown2html(source.read(), templates, markdown_tempalte)
+        output_data = convert_with_external_program(['coffee', '-pb', source.name])
     else:
+        #print 'copy...'+source.name
         output_data = source.read()
 
     output.write(output_data)
 
-def convert_jinja2html(source, templatedir):
+def convert_with_external_program(program):
+    """
+    
+    Arguments:
+    - `source`:
+    - `program`: list of program name and arguments
+    """
+
+    process = subprocess.Popen(program, stdout=subprocess.PIPE)
+    out, err = process.communicate()
+    return out
+
+
+def convert_markdown2html(source, templatedir, markdown_template):
+    options=dict()
+    options['content'] = markdown.markdown(source)
+    return convert_jinja2html(file(os.path.join(templatedir, markdown_template)).read(), templatedir, options)
+
+def convert_jinja2html(source, templatedir, options=dict()):
     """
     
     Arguments:
@@ -61,7 +80,7 @@ def convert_jinja2html(source, templatedir):
 
     env = jinja2.Environment(loader=jinja2.ChoiceLoader([jinja2.DictLoader({'inputtemplate':source}),
                                                          jinja2.FileSystemLoader(templatedir)]))
-    return env.get_template('inputtemplate').render()
+    return env.get_template('inputtemplate').render(**options)
 
 def runserver(options):
     """
@@ -81,6 +100,26 @@ def runserver(options):
 
     print "serving at http://127.0.0.1:{}/".format(options.port)
     httpd.serve_forever()
+
+def suggest_newfilename(path):
+    """
+    
+    Arguments:
+    - `path`:
+    """
+
+    convertdict = {'md': 'html',
+                   'markdown': 'html',
+                   'less': 'css',
+                   'coffeescript': 'js',
+                   'coffee': 'js'}
+
+    for key, value in convertdict.iteritems():
+        if path.endswith(key):
+            return path[:-len(key)]+value
+    return path
+    
+
 
 def convertall(options):
     """
@@ -112,7 +151,7 @@ def convertall(options):
 
             convert('guess',
                     file(os.path.join(options.sourcedir, relpath), 'rb'),
-                    file(os.path.join(options.destdir, relpath), 'wb'),
+                    file(os.path.join(options.destdir, suggest_newfilename(relpath)), 'wb'),
                     options.templates, options.markdown_template)
 
 
