@@ -1,0 +1,1 @@
+hello = () -> alert("Hello, world")
