@@ -7,37 +7,49 @@ import markdown
 import sys
 import os
 
-def convert(options):
+def convertcmd(options):
+    """
+    
+    Arguments:
+    - `options`:
+    """
+
+    convert(options.format, options.source, options.output, options.templates, options.markdown_template)
+
+
+def convert(format, source, output, templates, markdown_template):
     """
     
     Arguments:
     - `options`: options from argparse
     """
 
-    if options.format == 'guess':
-        if options.source.name.lower().endswith('less'):
+    if format == 'guess':
+        if source.name.lower().endswith('less'):
             format = 'less'
-        elif options.source.name.lower().endswith('html'):
+        elif source.name.lower().endswith('html'):
             format = 'jinja2'
-        elif options.source.name.lower().endswith('md'):
+        elif source.name.lower().endswith('md'):
             format = 'markdown'
         else:
-            sys.exit('Unknown file type:'+options.input.name)
-    else:
-        format = options.format
+            format = 'copy'
+            #sys.exit('Unknown file type:'+source.name)
 
     if format == 'less':
         raise NotImplementedError
-        output = convert_less2css(options.source.read())
+        output_data = convert_less2css(source.read())
     elif format == 'jinja2':
-        output = convert_jinja2html(options.source.read(), options.templates)
+        output_data = convert_jinja2html(source.read(), templates)
     elif format == 'markdown':
         raise NotImplementedError
-        output = convert_markdown2html(options.source.read(), options.templates, options.markdown_tempalte)
-    else:
+        output_data = convert_markdown2html(source.read(), templates, markdown_tempalte)
+    elif format == 'coffeescript':
         raise NotImplementedError
+        output_data = convert_markdown2html(source.read(), templates, markdown_tempalte)
+    else:
+        output_data = source.read()
 
-    options.output.write(output)
+    output.write(output_data)
 
 def convert_jinja2html(source, templatedir):
     """
@@ -70,6 +82,39 @@ def runserver(options):
     print "serving at http://127.0.0.1:{}/".format(options.port)
     httpd.serve_forever()
 
+def convertall(options):
+    """
+    
+    Arguments:
+    - `options`:
+    """
+
+    exclude_suffix = options.exclude_suffix.split(',')
+    exclude_prefix = options.exclude_prefix.split(',')
+
+    for root, dirs, files in os.walk(options.sourcedir):
+        for onedir in dirs:
+            relpath = os.path.relpath(os.path.join(root, onedir), options.sourcedir)
+            if any([relpath.endswith(x) for x in exclude_suffix]):
+                continue
+            if any([relpath.startswith(x) for x in exclude_prefix]):
+                continue
+            if not os.path.isdir(os.path.join(options.destdir, relpath)):
+                os.makedirs(os.path.join(options.destdir, relpath))
+
+        for onefile in files:
+            relpath = os.path.relpath(os.path.join(root, onefile), options.sourcedir)
+            basename = os.path.basename(relpath)
+            if any([relpath.endswith(x) for x in exclude_suffix]):
+                continue
+            if any([relpath.startswith(x) for x in exclude_prefix]):
+                continue
+
+            convert('guess',
+                    file(os.path.join(options.sourcedir, relpath), 'rb'),
+                    file(os.path.join(options.destdir, relpath), 'wb'),
+                    options.templates, options.markdown_template)
+
 
 def _main():
     parser = argparse.ArgumentParser(description='Build Webpage with Markdown, Jinja2 templates, LESS or some recent tools.')
@@ -90,16 +135,27 @@ def _main():
 
     parser_init = subparsers.add_parser('init', help='Initialize project directory')
     parser_init.set_defaults(which='init')
-    parser_init.add_argument
+    #parser_init.add_argument
     parser_init.add_argument('--directory', help='Project directory', nargs='?', default='.')
+
+    parser_all = subparsers.add_parser('all', help='Convert all')
+    parser_all.set_defaults(which='all')
+    parser_all.add_argument('sourcedir', help='Source directory')
+    parser_all.add_argument('destdir', help='Destination directory')
+    parser_all.add_argument('--exclude-suffix', default='.xcf,.psd,.DS_Store,.git,.hg,.svn', help='separated by comma defualt:%(default)s')
+    parser_all.add_argument('--exclude-prefix', default='templates', help='separated by comma defualt:%(default)s')
+    parser_all.add_argument('--templates', help='Root directory for jinja2 (default: %(default)s)', default='./source')
+    parser_all.add_argument('--markdown-template', help='Jinja2 Template HTML for Markdown. Relative path from templates directory (default: %(default)s)', default='templates/markdown.html')
 
     options = parser.parse_args()
 
     if options.which == 'convert':
-        return convert(options)
+        return convertcmd(options)
     elif options.which == 'runserver':
         return runserver(options)
-    elif options.which == 'directory':
+    elif options.which == 'all':
+        return convertall(options)
+    elif options.which == 'init':
         raise NotImplementedError
     else:
         raise NotImplementedError
