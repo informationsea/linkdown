@@ -1,0 +1,6 @@
+recursive-include linkdown/templates *
+recursive-exclude linkdown/templates .DS_Store
+recursive-exclude linkdown/templates .gitignore
+include COPYING
+include README.md
+

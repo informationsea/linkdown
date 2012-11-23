@@ -19,7 +19,7 @@ with file(os.path.join(packagedir, 'datalist.txt'), 'w') as f:
 
 setup(name='linkdown',
       version='0.1',
-      description='Build static web site with Markdown, Jinja2 templates, LESS or some recent tools.',
+      description='Build static webpages with Jinja2, Markdown, LESS, Coffeescript',
       packages=['linkdown'],
       author='Y.Okamura',
       author_email='okamura@informationsea.info',
@@ -27,6 +27,14 @@ setup(name='linkdown',
       url='https://github.com/informationsea/linkdown',
       install_requires = ['Markdown>=2.2.0', 'Jinja2>=2.6', 'watchdog>=0.6.0'],
       scripts=['scripts/linkdown'],
-      include_package_data=True,
       package_data={'linkdown': package_data + ['datalist.txt']},
+      classifiers = [
+        'Development Status :: 3 - Alpha',
+        'Operating System :: MacOS :: MacOS X',
+        'Operating System :: Microsoft :: Windows',
+        'Operating System :: POSIX',
+        'Programming Language :: Python :: 2.7',
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+        'Topic :: Internet :: WWW/HTTP :: Site Management',
+        'Environment :: Web Environment']
       )
