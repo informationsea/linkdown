@@ -67,8 +67,11 @@ def convert_with_external_program(program):
     - `program`: list of program name and arguments
     """
 
-    process = subprocess.Popen(program, stdout=subprocess.PIPE)
-    out, err = process.communicate()
+    try:
+        process = subprocess.Popen(program, stdout=subprocess.PIPE)
+        out, err = process.communicate()
+    except OSError as e:
+        sys.exit('ERROR: Command `{program}` is not found'.format(program=program[0]))
     return out
 
 
