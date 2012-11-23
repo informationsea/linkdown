@@ -238,7 +238,7 @@ def _convertall_main(options):
             convert('guess',
                     file(os.path.join(options.sourcedir, relpath), 'rb'),
                     file(os.path.join(options.destdir, suggest_newfilename(relpath)), 'wb'),
-                    options.templates, options.markdown_template, options.compress)
+                    options.sourcedir, options.markdown_template, options.compress)
 
 def initialize(options):
     """
@@ -290,7 +290,7 @@ def _main():
     parser_init = subparsers.add_parser('init', help='Initialize project directory')
     parser_init.set_defaults(which='init')
     parser_init.add_argument('directory', help='Project directory')
-    parser_init.add_argument('--template', choices=['basic'], help='Project template', default='basic')
+    parser_init.add_argument('--template', choices=['basic', 'bootstrap'], help='Project template', default='basic')
 
     parser_all = subparsers.add_parser('all', help='Convert all')
     parser_all.set_defaults(which='all')
@@ -299,7 +299,7 @@ def _main():
     parser_all.add_argument('--exclude-suffix', default='.xcf,.psd,.DS_Store,.git,.hg,.svn', help='separated by comma defualt:%(default)s')
     parser_all.add_argument('--exclude-prefix', default='templates', help='separated by comma default:%(default)s')
     parser_all.add_argument('-c', '--compress', help='Compress output', action='store_true')
-    parser_all.add_argument('--templates', help='Root directory for jinja2 (default: %(default)s)', default='./source')
+    #parser_all.add_argument('--templates', help='Root directory for jinja2 (default: %(default)s)', default='./source')
     parser_all.add_argument('--markdown-template', help='Jinja2 Template HTML for Markdown. Relative path from templates directory (default: %(default)s)', default='templates/markdown.html')
     parser_all.add_argument('-w', '--watch', action='store_true', help='Watch file changes and run convert automatically')
     parser_all.add_argument('-s', '--run-server', action='store_true', help='Run http server (only works with --watch)')
