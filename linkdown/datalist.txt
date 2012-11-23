@@ -1,0 +1,12 @@
+templates/Makefile
+templates/basic/about.md
+templates/basic/contacts.md
+templates/basic/index.html
+templates/basic/css/style.less
+templates/basic/img/header.png
+templates/basic/img/header.svg
+templates/basic/img/top.png
+templates/basic/img/top.svg
+templates/basic/js/hello.coffee
+templates/basic/templates/base.html
+templates/basic/templates/markdown.html

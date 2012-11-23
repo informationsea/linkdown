@@ -13,6 +13,17 @@ Requirements
     * watchdog
 * Nodejs
     * less
+    * coffeescript
+
+How to use
+----------
+
+1. Initialize project directory
+   `linkdown init projectdir`
+2. Change directory
+   `cd projectdir`
+3. Run server, file observer and converter
+   `linkdown all -ws`
 
 
 

@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
+    <title>{% block title %}Linkdown template title{% endblock %}</title>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/">
+        <img src="/img/header.png" alt="Linkdown" />
+      </a>
+      <ul>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contacts.html">Contacts</a></li>
+      </ul>
+    </div>
+    <div class="content">
+      {% block content %}
+      No content
+      {% endblock %}
+    </div>
+    <div class="footer">
+      Copyright &copy; 2012 Y.Okamura
+    </div>
+    <script src="/js/hello.js" type="text/javascript"></script>
+  </body>
+</html>
