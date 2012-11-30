@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- python -*-
+# -*- coding: utf-8 -*-
 
 import argparse
 import subprocess
@@ -7,6 +7,7 @@ import sys
 import os
 import time
 import threading
+import codecs
 
 import jinja2
 import markdown
@@ -77,9 +78,9 @@ def convert_with_external_program(program):
 
 def convert_markdown2html(source, templatedir, markdown_template, compress):
     options=dict()
-    options['content'] = markdown.markdown(source)
+    options['content'] = markdown.markdown(unicode(source, 'utf-8'))
     options['title'] = linkdown.htmlhelper.get_h1(options['content'])
-    return convert_jinja2html(file(os.path.join(templatedir, markdown_template)).read(), templatedir, options, compress)
+    return convert_jinja2html(file(os.path.join(templatedir, markdown_template)).read(), templatedir, options, compress).encode('utf-8')
 
 def convert_jinja2html(source, templatedir, options=dict(), compress=False):
     """
@@ -169,6 +170,10 @@ class ConvertEventHandler(watchdog.events.FileSystemEventHandler):
         - `event`:
         """
         if event.is_directory:
+            return
+        if os.path.basename(event.src_path)[0] == '#':
+            return
+        if os.path.basename(event.src_path)[-1] == '~':
             return
         print event
         _convertall_main(self._options)
