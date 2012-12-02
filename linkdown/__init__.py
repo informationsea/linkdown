@@ -2,19 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-import subprocess
 import sys
 import os
 import time
 import threading
 import codecs
+import subprocess
 
-import jinja2
-import markdown
 import watchdog.observers
 import watchdog.events
 
-import linkdown.htmlhelper
+import linkdown.convert
 
 def convertcmd(options):
     """
@@ -23,79 +21,7 @@ def convertcmd(options):
     - `options`:
     """
 
-    convert(options.format, options.source, options.output, options.templates, options.markdown_template, options.compress)
-
-
-def convert(format, source, output, templates, markdown_template, compress):
-    """
-    
-    Arguments:
-    - `options`: options from argparse
-    """
-
-    if format == 'guess':
-        if source.name.lower().endswith('less'):
-            format = 'less'
-        elif source.name.lower().endswith('html'):
-            format = 'jinja2'
-        elif source.name.lower().endswith('md') or source.name.lower().endswith('markdown') :
-            format = 'markdown'
-        elif source.name.lower().endswith('coffeescript') or source.name.lower().endswith('coffee') :
-            format = 'coffeescript'
-        else:
-            format = 'copy'
-            #print 'Unknown file type:'+source.name
-
-    if format == 'less':
-        output_data = convert_with_external_program(['lessc', source.name])
-    elif format == 'jinja2':
-        output_data = convert_jinja2html(source.read(), templates, compress=compress)
-    elif format == 'markdown':
-        output_data = convert_markdown2html(source.read(), templates, markdown_template=markdown_template, compress=compress)
-    elif format == 'coffeescript':
-        output_data = convert_with_external_program(['coffee', '-pb', source.name])
-    else:
-        #print 'copy...'+source.name
-        output_data = source.read()
-
-    output.write(output_data)
-
-def convert_with_external_program(program):
-    """
-    
-    Arguments:
-    - `source`:
-    - `program`: list of program name and arguments
-    """
-
-    try:
-        process = subprocess.Popen(program, stdout=subprocess.PIPE)
-        out, err = process.communicate()
-    except OSError as e:
-        sys.exit('ERROR: Command `{program}` is not found'.format(program=program[0]))
-    return out
-
-
-def convert_markdown2html(source, templatedir, markdown_template, compress):
-    options=dict()
-    options['content'] = markdown.markdown(unicode(source, 'utf-8'))
-    options['title'] = linkdown.htmlhelper.get_h1(options['content'])
-    return convert_jinja2html(file(os.path.join(templatedir, markdown_template)).read(), templatedir, options, compress).encode('utf-8')
-
-def convert_jinja2html(source, templatedir, options=dict(), compress=False):
-    """
-    
-    Arguments:
-    - `input`: input text
-    - `templatedir`: template directory
-    """
-
-    env = jinja2.Environment(loader=jinja2.ChoiceLoader([jinja2.DictLoader({'inputtemplate':source}),
-                                                         jinja2.FileSystemLoader(templatedir)]))
-    output = env.get_template('inputtemplate').render(**options)
-    if compress:
-        return linkdown.htmlhelper.compress_html(output)
-    return output
+    linkdown.convert.convert(options.format, options.source, options.output, options.templates, options.markdown_template, options.compress)
 
 def runserver(options):
     """
@@ -240,7 +166,7 @@ def _convertall_main(options):
             if any([basename.startswith(x) for x in ['.', '#']]):
                 continue
             
-            convert('guess',
+            linkdown.convert.convert('guess',
                     file(os.path.join(options.sourcedir, relpath), 'rb'),
                     file(os.path.join(options.destdir, suggest_newfilename(relpath)), 'wb'),
                     options.sourcedir, options.markdown_template, options.compress)

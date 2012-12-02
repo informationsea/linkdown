@@ -2,24 +2,72 @@
 # -*- python -*-
 
 import HTMLParser
+import urllib
 import re
 
-class H1Parser(HTMLParser.HTMLParser):
-    is_h1 = False
-    h1 = None
+import linkdown.convert
+
+class HeadlineParser(HTMLParser.HTMLParser):
+
+    def __init__(self):
+        """
+        
+        Arguments:
+        - `self`:
+        """
+        HTMLParser.HTMLParser.__init__(self)
+        self.is_h1 = False
+        self.is_h2 = False
+        self.is_h3 = False
+        self.h1 = None
+        self.headlines = list()
+        self.attr_id = None
+        
     def handle_starttag(self, tag, attrs):
+        self.is_h1 = False
+        self.is_h2 = False
+        self.is_h3 = False
+
         if tag == 'h1':
             self.is_h1 = True
-        else:
-            self.is_h1 = False
+        if tag == 'h2':
+            self.is_h2 = True
+        if tag == 'h3':
+            self.is_h3 = True
+
+        self.attr_id = None
+        for a, v in attrs:
+            if a == 'id':
+                self.attr_id = v
+        
     def handle_endtag(self, tag):
         self.is_h1 = False
+        self.is_h2 = False
+        self.is_h3 = False
+
     def handle_data(self, data):
-        if self.is_h1:
+        if self.is_h1 and not self.h1:
             self.h1 = data
+
+        if self.is_h1:
+            self.headlines.append(('h1', data, self.attr_id))
+        elif self.is_h2:
+            self.headlines.append(('h2', data, self.attr_id))
+        elif self.is_h3:
+            self.headlines.append(('h3', data, self.attr_id))
     
     def get_h1(self):
         return self.h1
+
+    def get_headlines(self):
+        """
+        
+        Arguments:
+        - `self`:
+        """
+
+        return self.headlines
+
 
 def get_h1(html):
     """
@@ -27,7 +75,7 @@ def get_h1(html):
     Arguments:
     - `html`:
     """
-    h1 = H1Parser()
+    h1 = HeadlineParser()
     h1.feed(html)
     return h1.get_h1()
 

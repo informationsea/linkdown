@@ -2,7 +2,57 @@
 
 {% block title %}{{ title }}{% endblock %}
 
+{% block bodyattr %}
+style="margin-bottom: 40px;" data-spy="scroll" data-target=".navbar"
+{% endblock %}
+
+{% block head %}
+<style type="text/css">
+.markdown {
+    margin-top: 10px;
+}
+.markdown h1, h2, h3 {
+    padding:50px 0 0;
+    margin:-50px 0 0;
+}
+</style>
+{% endblock %}
+
 {% block content %}
-{{ content }}
+<div class="container markdown">
+    <div class="navbar navbar-fixed-bottom navbar2">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            {% for item in headlines %}
+            {% if item[0] == "h1" %}
+            <a class="brand" href="#{{ item[2] }}">{{ item[1] }}</a>
+            {% else %}
+            {% if item[0] == "h2" and not loop.last and headlines[loop.index0+1][0] == 'h3' %}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ item[1] }}<b class="caret"></b></a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                <li><a href="#{{ item[2] }}" >{{ item[1] }}</a></li>
+                <li class="divider"></li>
+                {% elif item[0] == "h3" and (loop.last or headlines[loop.index0+1][0] == 'h2') %}
+                <li><a tabindex="-1" href="#{{ item[2] }}">{{ item[1] }}</a></li>
+              </ul>
+            </li>
+            {% else %}
+            <li><a href="#{{ item[2] }}">{{ item[1] }}</a></li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  
+  <div class="row">
+    <div class="span12">
+      {{ content }}
+    </div>
+  </div>
+</div>
 {% endblock %}
   
