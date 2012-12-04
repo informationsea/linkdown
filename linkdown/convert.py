@@ -43,6 +43,7 @@ def convert(format, source, output, templates, markdown_template, compress):
     options['size'] = os.path.getsize(source.name)
     options['originalpath'] = source.name
     options['relpath'] = os.path.relpath(source.name, templates)
+    options['root'] = os.path.relpath(templates, os.path.dirname(source.name))
 
     if format == 'less':
         output_data = convert_with_external_program(['lessc', source.name])
@@ -79,8 +80,11 @@ def convert_with_external_program(program):
 
 
 def convert_markdown2html(source, templatedir, markdown_template, options=dict(), compress=False):
-    options['content'] = markdown.markdown(unicode(source, 'utf-8'), [MarkdownHeadlineExtension()])
-
+    temp = markdown.markdown(unicode(source, 'utf-8'),
+                             [MarkdownHeadlineExtension(), 'tables', 'attr_list', 'def_list', 'fenced_code', 'abbr', 'footnotes'])
+    temp = temp.replace('<table>', '<table class="table table-striped">')
+    env = jinja2.Environment(loader=jinja2.DictLoader({'inputtemplate':temp}))
+    options['content'] = env.get_template('inputtemplate').render(**options)
     parser = linkdown.htmlhelper.HeadlineParser()
     parser.feed(options['content'])
     options['title'] = parser.h1
@@ -89,8 +93,11 @@ def convert_markdown2html(source, templatedir, markdown_template, options=dict()
     return convert_jinja2html(file(os.path.join(templatedir, markdown_template)).read(), templatedir, options, compress)
 
 def convert_rst2html(source, templatedir, markdown_template, options=dict(), compress=False):
-    options['content'] = docutils.core.publish_parts(unicode(source, 'utf-8'), writer_name='html5', writer=rst2html5.HTML5Writer())['body']
-
+    temp = docutils.core.publish_parts(unicode(source, 'utf-8'), writer_name='html5', writer=rst2html5.HTML5Writer())['body']
+    temp = temp.replace('<table>', '<table class="table table-striped">')
+    env = jinja2.Environment(loader=jinja2.DictLoader({'inputtemplate':temp}))
+    options['content'] = env.get_template('inputtemplate').render(**options)
+    
     parser = linkdown.htmlhelper.HeadlineParser()
     parser.feed(options['content'])
     options['title'] = parser.h1

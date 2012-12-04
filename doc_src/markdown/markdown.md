@@ -1,6 +1,9 @@
-# Markdown Syntax
+Markdown Syntax
+===============
 
 Original document can be found at <http://daringfireball.net/projects/markdown/syntax>
+
+<a href="./extensions.html" class="btn btn-primary">Some Extensions are available &raquo;</a>
 
 Markdown is free software, available under the terms of a BSD-style
 open source license.

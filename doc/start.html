@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Start linkdown : Linkdown</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    
+<style type="text/css">
+.markdown {
+    margin-top: 10px;
+}
+.markdown h1, h2, h3 {
+    padding:50px 0 0;
+    margin:-50px 0 8px;
+}
+</style>
+
+    <link href="./css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body 
+style="margin-bottom: 40px;" data-spy="scroll" data-target=".navbar"
+>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="./index.html">Linkdown</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="./index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="./about.html">About</a></li>
+                  <li class="divider"></li>
+                  <li><a href="./install.html">Install</a></li>
+                  <li><a href="./start.html">Start</a></li>
+                  <li><a href="./todo.html">ToDo</a></li>
+                </ul>
+              </li>
+
+              <li><a href="./jinja2/index.html">Jinja2</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Markdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="./markdown/markdown.html">Markdown Syntax</a></li>
+                  <li class="divider"></li>
+                  <li><a href="./markdown/extensions.html">Markdown extensions</a></li>
+                  <li><a href="./markdown/template.html">Jinja2 template for Markdown</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">reStructuredText <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="./rst/rst.html">A ReStructuredText Primer</a></li>
+                  <li class="divider"></li>
+                  <li><a href="./rst/quickref.html">Quick reStructuredText</a></li>
+                  <li><a href="./rst/cheatsheet.html">The reStructuredText Cheat Sheet: Syntax Reminders</a></li>
+                </ul>
+              </li>
+              <li class="active pull-right">
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div style="text-align:right">
+        Read original source of this page &rarr; <a href="./../doc_src/start.md" class="btn btn-info">View Source</a>
+      </div>
+      
+<div class="container markdown">
+    <div class="navbar navbar-fixed-bottom navbar2">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            
+            
+            <a class="brand" href="#Start-linkdown">Start linkdown</a>
+            
+            
+            
+            
+            <li><a href="#Initialize-project">Initialize project</a></li>
+            
+            
+            
+            
+            
+            <li><a href="#Run-web-server-and-file-observer">Run web server and file observer</a></li>
+            
+            
+            
+            
+            
+            <li><a href="#Customize-title-and-navibar">Customize title and navibar</a></li>
+            
+            
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  
+  <div class="row">
+    <div class="span12">
+      <h1 id="Start-linkdown">Start linkdown</h1>
+<p>Let's start linkdown</p>
+<h2 id="Initialize-project">Initialize project</h2>
+<pre><code>$ linkdown init --template bootstarp projectdir
+</code></pre>
+<p>There are two template, <code>basic</code> and <code>bootstrap</code>. I recommend <code>bootstrap</code> template because it's beauty!</p>
+<h2 id="Run-web-server-and-file-observer">Run web server and file observer</h2>
+<p>Linkdown has built-in web server and file observer.
+You don't have to install Apache to develop.</p>
+<pre><code>$ cd projectdir
+$ linkdown all -ws
+</code></pre>
+<p>If you just want to convert files, run <code>linkdown all</code>.</p>
+<p>Sometimes linkdown miss file change events. Please save your file again to convert or run <code>linkdown all</code>.</p>
+<h2 id="Customize-title-and-navibar">Customize title and navibar</h2>
+<p>To customize title and navibar, open <code>templates/base.html</code> and edit it.
+Please read <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> to customize navibar.</p>
+    </div>
+  </div>
+</div>
+
+
+
+      <hr>
+
+      <footer>
+        <p>&copy; Y.Okamura 2012</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./js/jquery-1.8.3.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+
+  </body>
+</html>

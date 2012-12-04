@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The reStructuredText Cheat Sheet: Syntax Reminders : Linkdown</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    
+<style type="text/css">
+.markdown {
+    margin-top: 10px;
+}
+.markdown h1, h2, h3 {
+    padding:50px 0 0;
+    margin:-50px 0 8px;
+}
+</style>
+
+    <link href="../css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body 
+style="margin-bottom: 40px;" data-spy="scroll" data-target=".navbar"
+>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="../index.html">Linkdown</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="../index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="../about.html">About</a></li>
+                  <li class="divider"></li>
+                  <li><a href="../install.html">Install</a></li>
+                  <li><a href="../start.html">Start</a></li>
+                  <li><a href="../todo.html">ToDo</a></li>
+                </ul>
+              </li>
+
+              <li><a href="../jinja2/index.html">Jinja2</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Markdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="../markdown/markdown.html">Markdown Syntax</a></li>
+                  <li class="divider"></li>
+                  <li><a href="../markdown/extensions.html">Markdown extensions</a></li>
+                  <li><a href="../markdown/template.html">Jinja2 template for Markdown</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">reStructuredText <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="../rst/rst.html">A ReStructuredText Primer</a></li>
+                  <li class="divider"></li>
+                  <li><a href="../rst/quickref.html">Quick reStructuredText</a></li>
+                  <li><a href="../rst/cheatsheet.html">The reStructuredText Cheat Sheet: Syntax Reminders</a></li>
+                </ul>
+              </li>
+              <li class="active pull-right">
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div style="text-align:right">
+        Read original source of this page &rarr; <a href="../../doc_src/rst/cheatsheet.rst" class="btn btn-info">View Source</a>
+      </div>
+      
+<div class="container markdown">
+    <div class="navbar navbar-fixed-bottom navbar2">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            
+            
+            <a class="brand" href="#None">The reStructuredText Cheat Sheet: Syntax Reminders</a>
+            
+            
+            
+            
+            <li><a href="#section-structure">Section Structure</a></li>
+            
+            
+            
+            
+            
+            <li><a href="#body-elements">Body Elements</a></li>
+            
+            
+            
+            
+            
+            <li><a href="#inline-markup">Inline Markup</a></li>
+            
+            
+            
+            
+            
+            <li><a href="#directive-quick-reference">Directive Quick Reference</a></li>
+            
+            
+            
+            
+            
+            <li><a href="#interpreted-text-role-quick-reference">Interpreted Text Role Quick Reference</a></li>
+            
+            
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  
+  <div class="row">
+    <div class="span12">
+      
+    <h1>The reStructuredText Cheat Sheet: Syntax Reminders</h1>
+    <table class="docinfo">
+        <col />
+        <col />
+        <tbody>
+            <tr>
+                <th>Info</th>
+                <td>See &lt;<a href="http://docutils.sf.net/rst.html">http://docutils.sf.net/rst.html</a>&gt; for introductory docs.</td>
+            </tr>
+            <tr>
+                <th>author</th>
+                <td>David Goodger &lt;<a href="mailto:goodger@python.org">goodger@python.org</a>&gt;</td>
+            </tr>
+            <tr>
+                <th>date</th>
+                <td>2012-06-22</td>
+            </tr>
+            <tr>
+                <th>revision</th>
+                <td>7463</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>This is a "docinfo block", or bibliographic field list</td>
+            </tr>
+        </tbody>
+    </table>
+    <a id="section-structure"></a>
+    <section>
+        <h2>Section Structure</h2>
+        <p>Section titles are underlined or overlined &amp; underlined.</p>
+    </section>
+    <a id="body-elements"></a>
+    <section>
+        <h2>Body Elements</h2>
+        <p>Grid table:</p>
+        <table class="table table-striped">
+            <col />
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <p>Paragraphs are flush-left, separated by blank lines.</p>
+                        <blockquote>
+                            <p>Block quotes are indented.</p>
+                        </blockquote>
+                    </td>
+                    <td rowspan="2">
+                        <p>Literal block, preceded by "::":</p>
+                        <pre>Indented</pre>
+                        <p>or:</p>
+                        <pre>&gt; Quoted</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <pre class="doctest_block">&gt;&gt;&gt; print 'Doctest block'
+Doctest block</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <pre class="line_block">Line blocks preserve line breaks &amp; indents. [new in 0.3.6]
+    Useful for addresses, verse, and adornment-free lists; long lines can be wrapped with continuation lines.</pre>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Simple tables:</p>
+        <table class="table table-striped">
+            <col />
+            <col />
+            <thead>
+                <tr>
+                    <th>List Type</th>
+                    <th>Examples</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bullet list</td>
+                    <td>
+                        <ul>
+                            <li>items begin with "-", "+", or "*"</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Enumerated list</td>
+                    <td>
+                        <ol type="1">
+                            <li>items use any variation of "1.", "A)", and "(i)"</li>
+                            <li>also auto-enumerated</li>
+                        </ol>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Definition list</td>
+                    <td>
+                        <dl>
+                            <dt>Term is flush-left <span class="classifier-delimiter">:</span> <span class="classifier">optional classifier</span></dt>
+                            <dd>Definition is indented, no blank line between</dd>
+                        </dl>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Field list</td>
+                    <td>
+                        <table class="field_list">
+                            <col />
+                            <col />
+                            <tbody>
+                                <tr>
+                                    <th>field name</th>
+                                    <td>field body</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Option list</td>
+                    <td>
+                        <table class="option_list">
+                            <col />
+                            <col />
+                            <tbody>
+                                <tr>
+                                    <td><kbd>-o</kbd></td>
+                                    <td>at least 2 spaces between option &amp; description</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped">
+            <col />
+            <col />
+            <thead>
+                <tr>
+                    <th>Explicit Markup</th>
+                    <th>Examples (visible in the <a href="cheatsheet.txt">text source</a>)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Footnote</td>
+                    <td>
+                        <table class="footnote" id="id1">
+                            <col />
+                            <col />
+                            <tbody>
+                                <tr>
+                                    <th>[1]</th>
+                                    <td>Manually numbered or [#] auto-numbered (even [#labelled]) or [*] auto-symbol</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Citation</td>
+                    <td>
+                        <table class="citation" id="cit2002">
+                            <col />
+                            <col />
+                            <tbody>
+                                <tr>
+                                    <th>[CIT2002]</th>
+                                    <td>A citation.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Hyperlink Target</td>
+                    <td></td>
+                </tr>
+                <a id="internal-target"></a>
+                <tr>
+                    <td>Anonymous Target</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Directive ("::")</td>
+                    <td>
+                        <img src="images/biohazard.png" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Substitution Def</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Comment</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Empty Comment</td>
+                    <td>(".." on a line by itself, with blank lines before &amp; after, used to separate indentation contexts)</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <a id="inline-markup"></a>
+    <section>
+        <h2>Inline Markup</h2>
+        <p><em>emphasis</em>; <strong>strong emphasis</strong>; <cite>interpreted text</cite>; <em>interpreted text with role</em>; <code>inline&nbsp;literal&nbsp;text</code>; standalone hyperlink, <a href="http://docutils.sourceforge.net">http://docutils.sourceforge.net</a>; named reference, <a href="http://docutils.sf.net/rst.html">reStructuredText</a>; <a href="http://docutils.sf.net/docs/ref/rst/restructuredtext.html">anonymous reference</a>; footnote reference, <a href="#id1" id="id3" class="footnote_reference">[1]</a>; citation reference, <a href="#cit2002" id="id4" class="citation_reference">[CIT2002]</a>; like an inline directive; <a id="inline-internal-target">inline internal target</a>.</p>
+    </section>
+    <a id="directive-quick-reference"></a>
+    <section>
+        <h2>Directive Quick Reference</h2>
+        <p>See &lt;<a href="http://docutils.sf.net/docs/ref/rst/directives.html">http://docutils.sf.net/docs/ref/rst/directives.html</a>&gt; for full info.</p>
+        <table class="table table-striped">
+            <col />
+            <col />
+            <thead>
+                <tr>
+                    <th>Directive Name</th>
+                    <th>Description (Docutils version added to, in [brackets])</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>attention</td>
+                    <td>Specific admonition; also "caution", "danger", "error", "hint", "important", "note", "tip", "warning"</td>
+                </tr>
+                <tr>
+                    <td>admonition</td>
+                    <td>Generic titled admonition: <code>..&nbsp;admonition::&nbsp;By&nbsp;The&nbsp;Way</code></td>
+                </tr>
+                <tr>
+                    <td>image</td>
+                    <td><code>..&nbsp;image::&nbsp;picture.png</code>; many options possible</td>
+                </tr>
+                <tr>
+                    <td>figure</td>
+                    <td>Like "image", but with optional caption and legend</td>
+                </tr>
+                <tr>
+                    <td>topic</td>
+                    <td><code>..&nbsp;topic::&nbsp;Title</code>; like a mini section</td>
+                </tr>
+                <tr>
+                    <td>sidebar</td>
+                    <td><code>..&nbsp;sidebar::&nbsp;Title</code>; like a mini parallel document</td>
+                </tr>
+                <tr>
+                    <td>parsed-literal</td>
+                    <td>A literal block with parsed inline markup</td>
+                </tr>
+                <tr>
+                    <td>rubric</td>
+                    <td><code>..&nbsp;rubric::&nbsp;Informal&nbsp;Heading</code></td>
+                </tr>
+                <tr>
+                    <td>epigraph</td>
+                    <td>Block quote with class="epigraph"</td>
+                </tr>
+                <tr>
+                    <td>highlights</td>
+                    <td>Block quote with class="highlights"</td>
+                </tr>
+                <tr>
+                    <td>pull-quote</td>
+                    <td>Block quote with class="pull-quote"</td>
+                </tr>
+                <tr>
+                    <td>compound</td>
+                    <td>Compound paragraphs [0.3.6]</td>
+                </tr>
+                <tr>
+                    <td>container</td>
+                    <td>Generic block-level container element [0.3.10]</td>
+                </tr>
+                <tr>
+                    <td>table</td>
+                    <td>Create a titled table [0.3.1]</td>
+                </tr>
+                <tr>
+                    <td>list-table</td>
+                    <td>Create a table from a uniform two-level bullet list [0.3.8]</td>
+                </tr>
+                <tr>
+                    <td>csv-table</td>
+                    <td>Create a table from CSV data [0.3.4]</td>
+                </tr>
+                <tr>
+                    <td>contents</td>
+                    <td>Generate a table of contents</td>
+                </tr>
+                <tr>
+                    <td>sectnum</td>
+                    <td>Automatically number sections, subsections, etc.</td>
+                </tr>
+                <tr>
+                    <td>header, footer</td>
+                    <td>Create document decorations [0.3.8]</td>
+                </tr>
+                <tr>
+                    <td>target-notes</td>
+                    <td>Create an explicit footnote for each external target</td>
+                </tr>
+                <tr>
+                    <td>math</td>
+                    <td>Mathematical notation (input in LaTeX format)</td>
+                </tr>
+                <tr>
+                    <td>meta</td>
+                    <td>HTML-specific metadata</td>
+                </tr>
+                <tr>
+                    <td>include</td>
+                    <td>Read an external reST file as if it were inline</td>
+                </tr>
+                <tr>
+                    <td>raw</td>
+                    <td>Non-reST data passed untouched to the Writer</td>
+                </tr>
+                <tr>
+                    <td>replace</td>
+                    <td>Replacement text for substitution definitions</td>
+                </tr>
+                <tr>
+                    <td>unicode</td>
+                    <td>Unicode character code conversion for substitution defs</td>
+                </tr>
+                <tr>
+                    <td>date</td>
+                    <td>Generates today's date; for substitution defs</td>
+                </tr>
+                <tr>
+                    <td>class</td>
+                    <td>Set a "class" attribute on the next element</td>
+                </tr>
+                <tr>
+                    <td>role</td>
+                    <td>Create a custom interpreted text role [0.3.2]</td>
+                </tr>
+                <tr>
+                    <td>default-role</td>
+                    <td>Set the default interpreted text role [0.3.10]</td>
+                </tr>
+                <tr>
+                    <td>title</td>
+                    <td>Set the metadata document title [0.3.10]</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <a id="interpreted-text-role-quick-reference"></a>
+    <section>
+        <h2>Interpreted Text Role Quick Reference</h2>
+        <p>See &lt;<a href="http://docutils.sf.net/docs/ref/rst/roles.html">http://docutils.sf.net/docs/ref/rst/roles.html</a>&gt; for full info.</p>
+        <table class="table table-striped">
+            <col />
+            <col />
+            <thead>
+                <tr>
+                    <th>Role Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>emphasis</td>
+                    <td>Equivalent to <em>emphasis</em></td>
+                </tr>
+                <tr>
+                    <td>literal</td>
+                    <td>Equivalent to <code>literal</code> but processes backslash escapes</td>
+                </tr>
+                <tr>
+                    <td>math</td>
+                    <td>Mathematical notation (input in LaTeX format)</td>
+                </tr>
+                <tr>
+                    <td>PEP</td>
+                    <td>Reference to a numbered Python Enhancement Proposal</td>
+                </tr>
+                <tr>
+                    <td>RFC</td>
+                    <td>Reference to a numbered Internet Request For Comments</td>
+                </tr>
+                <tr>
+                    <td>raw</td>
+                    <td>For non-reST data; cannot be used directly (see docs) [0.3.6]</td>
+                </tr>
+                <tr>
+                    <td>strong</td>
+                    <td>Equivalent to <strong>strong</strong></td>
+                </tr>
+                <tr>
+                    <td>sub</td>
+                    <td>Subscript</td>
+                </tr>
+                <tr>
+                    <td>sup</td>
+                    <td>Superscript</td>
+                </tr>
+                <tr>
+                    <td>title</td>
+                    <td>Title reference (book, etc.); standard default role</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    </div>
+  </div>
+</div>
+
+
+
+      <hr>
+
+      <footer>
+        <p>&copy; Y.Okamura 2012</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.8.3.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+  </body>
+</html>

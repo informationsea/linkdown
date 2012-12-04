@@ -3,6 +3,26 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
+<ul>
+{% for item in headlines %}
+{% if item[0] == "h1" %}
+<li><a class="brand" href="#{{ item[2] }}">{{ item[1] }}</a></li>
+{% else %}
+{% if item[0] == "h2" and not loop.last and headlines[loop.index0+1][0] == 'h3' %}
+<li>
+  <a href="#{{ item[2] }}" >{{ item[1] }}</a>
+  <ul>
+    {% elif item[0] == "h3" and (loop.last or headlines[loop.index0+1][0] == 'h2') %}
+    <li><a tabindex="-1" href="#{{ item[2] }}">{{ item[1] }}</a></li>
+  </ul>
+</li>
+{% else %}
+<li><a href="#{{ item[2] }}">{{ item[1] }}</a></li>
+{% endif %}
+{% endif %}
+{% endfor %}
+</ul>
+
 {{ content }}
 {% endblock %}
 

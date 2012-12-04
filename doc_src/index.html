@@ -1,0 +1,50 @@
+{% extends "templates/base.html" %}
+
+{% block title %}Linkdown{% endblock %}
+
+{% block content %}
+<!-- Main hero unit for a primary marketing message or call to action -->
+<div class="hero-unit">
+  <h1>Linkdown</h1>
+  <p>Linkdown generate static web pages from Jinja2 templates, Markdown text, LESS, Coffee Script.</p>
+  <p><a href="{{ root }}/about.html" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+</div>
+
+<!-- Example row of columns -->
+<div class="row">
+  <div class="span4">
+    <h2>Install</h2>
+    <p>It's easy to install Linkdown.</p>
+    <p><a class="btn btn-info" href="{{ root }}/install.html">Install &raquo;</a></p>
+  </div>
+  <div class="span4">
+    <h2>Start</h2>
+    <p>Let's start linkdown</p>
+    <p><a class="btn" href="{{ root }}/start.html">Start &raquo;</a></p>
+  </div>
+  <div class="span4">
+    <h2>ToDo</h2>
+    <p>Contributors are wanted!</p>
+    <p><a class="btn" href="{{ root }}/todo.html">View details &raquo;</a></p>
+  </div>
+</div>
+<div class="row">
+  <div class="span4">
+    <h2>Markdown</h2>
+    <p>Markdown is intended to be as easy-to-read and easy-to-write as is feasible.</p>
+    <p><a class="btn" href="{{ root }}/markdown/markdown.html">View details &raquo;</a></p>
+  </div>
+  <div class="span4">
+    <h2>Jinja2</h2>
+    <p>Jinja2 is one of most powerful template engine for python web applications. You have to write headers and footers only once, and other documents includes them.
+</p>
+    <p><a class="btn" href="{{ root }}/jinja2/index.html">View details &raquo;</a></p>
+  </div>
+  <div class="span4">
+    <h2>reStructuredText</h2>
+    <p>reStructuredText is an easy-to-read, what-you-see-is-what-you-get plaintext markup syntax and parser system. It is useful for in-line program documentation (such as Python docstrings), for quickly creating simple web pages, and for standalone documents. reStructuredText is designed for extensibility for specific application domains.</p>
+    <p><a class="btn" href="{{ root }}/rst/rst.html">View details &raquo;</a></p>
+  </div>
+</div>
+
+{% endblock %}

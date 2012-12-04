@@ -1,5 +1,5 @@
 =====================================================
- The reStructuredText_ Cheat Sheet: Syntax Reminders
+ The reStructuredText Cheat Sheet: Syntax Reminders
 =====================================================
 :Info: See <http://docutils.sf.net/rst.html> for introductory docs.
 :Author: David Goodger <goodger@python.org>
@@ -127,3 +127,4 @@ sub               Subscript
 sup               Superscript
 title             Title reference (book, etc.); standard default role
 ================  ============================================================
+

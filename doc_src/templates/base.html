@@ -38,15 +38,37 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li><a href="{{ root }}/index.html">Home</a></li>
-              <li><a href="{{ root }}/about.html">About</a></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Dropdown</a></li>
+                  <li><a href="{{ root }}/about.html">About</a></li>
                   <li class="divider"></li>
-                  <li><a href="#">Dropdown 2</a></li>
-                  <li><a href="#">Dropdown 3</a></li>
+                  <li><a href="{{ root }}/install.html">Install</a></li>
+                  <li><a href="{{ root }}/start.html">Start</a></li>
+                  <li><a href="{{ root }}/todo.html">ToDo</a></li>
                 </ul>
+              </li>
+
+              <li><a href="{{ root }}/jinja2/index.html">Jinja2</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Markdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{ root }}/markdown/markdown.html">Markdown Syntax</a></li>
+                  <li class="divider"></li>
+                  <li><a href="{{ root }}/markdown/extensions.html">Markdown extensions</a></li>
+                  <li><a href="{{ root }}/markdown/template.html">Jinja2 template for Markdown</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">reStructuredText <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{ root }}/rst/rst.html">A ReStructuredText Primer</a></li>
+                  <li class="divider"></li>
+                  <li><a href="{{ root }}/rst/quickref.html">Quick reStructuredText</a></li>
+                  <li><a href="{{ root }}/rst/cheatsheet.html">The reStructuredText Cheat Sheet: Syntax Reminders</a></li>
+                </ul>
+              </li>
+              <li class="active pull-right">
               </li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -55,12 +77,18 @@
     </div>
 
     <div class="container">
+      <div style="text-align:right">
+        Read original source of this page &rarr; <a href="{{ root }}/../{{ originalpath }}" class="btn btn-info">View Source</a>
+      </div>
       {% block content %}
+
       {% endblock %}
 
+
       <hr>
+
       <footer>
-        <p>&copy; 2012</p>
+        <p>&copy; Y.Okamura 2012</p>
       </footer>
 
     </div> <!-- /container -->
