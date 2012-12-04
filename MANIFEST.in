@@ -1,6 +1,8 @@
 recursive-include linkdown/templates *
 recursive-exclude linkdown/templates .DS_Store
 recursive-exclude linkdown/templates .gitignore
+recursive-exclude linkdown/templates/public_html *
 include COPYING
-include README.md
+include README.rst
+include distribute_setup.py
 

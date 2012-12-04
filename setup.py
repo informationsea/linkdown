@@ -1,3 +1,5 @@
+#!/usr/bin/env python2.7
+
 from distribute_setup import use_setuptools
 use_setuptools()
 
@@ -28,7 +30,7 @@ setup(name='linkdown',
       author_email='okamura@informationsea.info',
       license='GPL3+',
       url='https://github.com/informationsea/linkdown',
-      install_requires = ['distribute', 'Markdown>=2.2.0', 'Jinja2>=2.6', 'watchdog>=0.6.0', 'docutils>=0.9.1'],
+      install_requires = ['distribute', 'Markdown>=2.2.0', 'Jinja2>=2.6', 'watchdog>=0.6.0', 'rst2html5>=0.9'],
       scripts=['scripts/linkdown'],
       package_data={'linkdown': package_data + ['datalist.txt']},
       classifiers = [

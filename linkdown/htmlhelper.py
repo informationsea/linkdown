@@ -35,7 +35,6 @@ class HeadlineParser(HTMLParser.HTMLParser):
         if tag == 'h3':
             self.is_h3 = True
 
-        self.attr_id = None
         for a, v in attrs:
             if a == 'id':
                 self.attr_id = v

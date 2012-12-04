@@ -65,6 +65,8 @@ def suggest_newfilename(path):
 
     convertdict = {'md': 'html',
                    'markdown': 'html',
+                   'rst': 'html',
+                   'rest': 'html',
                    'less': 'css',
                    'coffeescript': 'js',
                    'coffee': 'js'}

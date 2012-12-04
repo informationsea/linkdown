@@ -10,6 +10,8 @@ import urllib
 import jinja2
 import markdown
 import markdown.treeprocessors
+import rst2html5
+import docutils.core
 
 import linkdown.htmlhelper
 
@@ -27,6 +29,8 @@ def convert(format, source, output, templates, markdown_template, compress):
             format = 'jinja2'
         elif source.name.lower().endswith('md') or source.name.lower().endswith('markdown') :
             format = 'markdown'
+        elif source.name.lower().endswith('rst'):
+            format = 'rst'
         elif source.name.lower().endswith('coffeescript') or source.name.lower().endswith('coffee') :
             format = 'coffeescript'
         else:
@@ -46,6 +50,9 @@ def convert(format, source, output, templates, markdown_template, compress):
         output_data = convert_jinja2html(source.read(), templates, options=options, compress=compress)
     elif format == 'markdown':
         output_data = convert_markdown2html(source.read(), templates,
+                                            markdown_template=markdown_template, options=options, compress=compress)
+    elif format == 'rst':
+        output_data = convert_rst2html(source.read(), templates,
                                             markdown_template=markdown_template, options=options, compress=compress)
     elif format == 'coffeescript':
         output_data = convert_with_external_program(['coffee', '-pb', source.name])
@@ -80,6 +87,17 @@ def convert_markdown2html(source, templatedir, markdown_template, options=dict()
     options['headlines'] = parser.headlines
     
     return convert_jinja2html(file(os.path.join(templatedir, markdown_template)).read(), templatedir, options, compress)
+
+def convert_rst2html(source, templatedir, markdown_template, options=dict(), compress=False):
+    options['content'] = docutils.core.publish_parts(unicode(source, 'utf-8'), writer_name='html5', writer=rst2html5.HTML5Writer())['body']
+
+    parser = linkdown.htmlhelper.HeadlineParser()
+    parser.feed(options['content'])
+    options['title'] = parser.h1
+    options['headlines'] = parser.headlines
+    
+    return convert_jinja2html(file(os.path.join(templatedir, markdown_template)).read(), templatedir, options, compress)
+
 
 def convert_jinja2html(source, templatedir, options=dict(), compress=False):
     """
