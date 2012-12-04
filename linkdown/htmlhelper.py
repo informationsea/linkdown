@@ -78,6 +78,8 @@ def get_h1(html):
     h1.feed(html)
     return h1.get_h1()
 
+_whitespace = re.compile(r'\s+')
+
 class CompressHTML(HTMLParser.HTMLParser):
     _content = ''
     def handle_starttag(self, tag, attrs):
@@ -88,7 +90,7 @@ class CompressHTML(HTMLParser.HTMLParser):
     def handle_endtag(self, tag):
         self._content += '</{0}>'.format(tag)
     def handle_data(self, data):
-        self._content += data.strip()
+        self._content += _whitespace.sub(" ", data)
     def get_html(self):
         """
         
