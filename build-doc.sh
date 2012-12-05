@@ -11,7 +11,8 @@ elif [ "$1" == "zip" ]; then
 EOF
     cp -R doc_src dist/doc/doc_src
     cp -R doc dist/doc/doc
-    (cd dist/doc; zip -r linkdown.zip doc doc_src index.html;)
+    (cd dist/doc; zip -r ../linkdown-doc.zip doc doc_src index.html;)
+    rm -r dist/doc
 else
     linkdown all -c doc_src doc
 fi
