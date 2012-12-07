@@ -6,6 +6,7 @@ import time
 import subprocess
 import re
 import urllib
+import sys
 
 import jinja2
 import markdown

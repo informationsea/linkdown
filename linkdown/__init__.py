@@ -101,6 +101,8 @@ class ConvertEventHandler(watchdog.events.FileSystemEventHandler):
             return
         if os.path.basename(event.src_path)[0] == '#':
             return
+        if os.path.basename(event.src_path).startswith('.#'):
+            return
         if os.path.basename(event.src_path)[-1] == '~':
             return
         print event
