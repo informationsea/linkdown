@@ -16,8 +16,10 @@ Some built-in variables are available for jinja2 templates.
 
 Variable Name  | Description                           | Example
 -------------- | ------------------------------------- | -------------------
-mtime          | Last Modified date and time (in text) | {{ mtime }}
-ctime          | File create date and time             | {{ ctime }}
+mtime          | Last Modified time                    | {{ mtime }}
+ctime          | File create time                      | {{ ctime }}
+mdate          | Last Modified date                    | {{ mdate }}
+cdate          | File create date                      | {{ cdate }}
 size           | File size                             | {{ size }}
 originalpath   | Original file path                    | {{ originalpath }}
 relpath        | Relative path from root               | {{ relpath }}

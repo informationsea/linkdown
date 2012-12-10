@@ -39,8 +39,10 @@ def convert(format, source, output, templates, markdown_template, compress):
             #print 'Unknown file type:'+source.name
 
     options = dict()
-    options['mtime'] = time.strftime("%H:%M %d/%B/%Y %Z", time.localtime(os.path.getmtime(source.name)))
-    options['ctime'] = time.strftime("%H:%M %d/%B/%Y %Z", time.localtime(os.path.getctime(source.name)))
+    options['mtime'] = time.strftime("%H:%M %Z", time.localtime(os.path.getmtime(source.name)))
+    options['ctime'] = time.strftime("%H:%M %Z", time.localtime(os.path.getctime(source.name)))
+    options['mdate'] = time.strftime("%d/%B/%Y", time.localtime(os.path.getmtime(source.name)))
+    options['cdate'] = time.strftime("%d/%B/%Y", time.localtime(os.path.getctime(source.name)))
     options['size'] = os.path.getsize(source.name)
     options['originalpath'] = source.name
     options['relpath'] = os.path.relpath(source.name, templates)
