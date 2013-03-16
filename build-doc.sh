@@ -3,7 +3,7 @@
 if [ "$1" == "watch" ]; then
     linkdown all -ws doc_src doc
 elif [ "$1" == "zip" ]; then
-    linkdown all -c doc_src doc
+    linkdown all doc_src doc
     mkdir -p dist/doc
     cat > dist/doc/index.html <<EOF
 <html><head><meta http-equiv="Refresh" content="0;URL=./doc/index.html" /></head>
@@ -14,5 +14,5 @@ EOF
     (cd dist/doc; zip -r ../linkdown-doc.zip doc doc_src index.html;)
     rm -r dist/doc
 else
-    linkdown all -c doc_src doc
+    linkdown all doc_src doc
 fi

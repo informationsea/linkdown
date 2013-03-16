@@ -24,15 +24,15 @@ def convert(format, source, output, templates, markdown_template, compress):
     """
 
     if format == 'guess':
-        if source.name.lower().endswith('less'):
+        if source.name.lower().endswith('.less'):
             format = 'less'
-        elif source.name.lower().endswith('html'):
+        elif source.name.lower().endswith('.html'):
             format = 'jinja2'
-        elif source.name.lower().endswith('md') or source.name.lower().endswith('markdown') :
+        elif source.name.lower().endswith('.md') or source.name.lower().endswith('.markdown') :
             format = 'markdown'
-        elif source.name.lower().endswith('rst'):
+        elif source.name.lower().endswith('.rst'):
             format = 'rst'
-        elif source.name.lower().endswith('coffeescript') or source.name.lower().endswith('coffee') :
+        elif source.name.lower().endswith('.coffeescript') or source.name.lower().endswith('.coffee') :
             format = 'coffeescript'
         else:
             format = 'copy'
@@ -49,7 +49,10 @@ def convert(format, source, output, templates, markdown_template, compress):
     options['root'] = os.path.relpath(templates, os.path.dirname(source.name))
 
     if format == 'less':
-        output_data = convert_with_external_program(['lessc', source.name])
+        if (not os.path.exists(output)) or (os.path.getmtime(output) < os.path.getmtime(source.name)):
+            output_data = convert_with_external_program(['lessc', source.name])
+        else:
+            return
     elif format == 'jinja2':
         output_data = convert_jinja2html(source.read(), templates, options=options, compress=compress)
     elif format == 'markdown':
@@ -59,12 +62,19 @@ def convert(format, source, output, templates, markdown_template, compress):
         output_data = convert_rst2html(source.read(), templates,
                                             markdown_template=markdown_template, options=options, compress=compress)
     elif format == 'coffeescript':
-        output_data = convert_with_external_program(['coffee', '-pb', source.name])
+        if (not os.path.exists(output)) or (os.path.getmtime(output) < os.path.getmtime(source.name)):
+            output_data = convert_with_external_program(['coffee', '-pb', source.name])
+        else:
+            return
     else:
         #print 'copy...'+source.name
-        output_data = source.read()
+        if (not os.path.exists(output)) or (os.path.getmtime(output) < os.path.getmtime(source.name)):
+            output_data = source.read()
+        else:
+            return
 
-    output.write(output_data)
+    with file(output, 'wb') as f:
+        f.write(output_data)
 
 def convert_with_external_program(program):
     """

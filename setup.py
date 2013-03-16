@@ -23,7 +23,7 @@ with file(os.path.join(packagedir, 'datalist.txt'), 'w') as f:
         print >>f, one
 
 setup(name='linkdown',
-      version='0.1.1',
+      version='0.1.2dev',
       description='Build static webpages with Jinja2, Markdown, LESS, Coffeescript',
       packages=['linkdown'],
       author='Y.Okamura',

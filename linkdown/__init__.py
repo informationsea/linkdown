@@ -5,13 +5,16 @@ import argparse
 import sys
 import os
 import time
+import datetime
 import threading
 import codecs
 import subprocess
+import yaml
 
 import watchdog.observers
 import watchdog.events
 
+import linkdown.htmlhelper
 import linkdown.convert
 
 def convertcmd(options):
@@ -150,6 +153,8 @@ def _convertall_main(options):
     exclude_suffix = options.exclude_suffix.split(',')
     exclude_prefix = options.exclude_prefix.split(',')
 
+    db = list()
+
     for root, dirs, files in os.walk(options.sourcedir):
         for onedir in dirs:
             relpath = os.path.relpath(os.path.join(root, onedir), options.sourcedir)
@@ -169,11 +174,27 @@ def _convertall_main(options):
                 continue
             if any([basename.startswith(x) for x in ['.', '#']]):
                 continue
+
+            output_name = suggest_newfilename(relpath)
             
             linkdown.convert.convert('guess',
                     file(os.path.join(options.sourcedir, relpath), 'rb'),
-                    file(os.path.join(options.destdir, suggest_newfilename(relpath)), 'wb'),
+                    os.path.join(options.destdir, output_name),
                     options.sourcedir, options.markdown_template, options.compress)
+
+            modiftime = time.localtime(os.path.getmtime(os.path.join(options.sourcedir, relpath)))
+            lineargs = [relpath, output_name, None, datetime.datetime(modiftime[0], modiftime[1], modiftime[2], modiftime[3], modiftime[4], modiftime[5])]
+            
+            if output_name.endswith('.html'):
+                with file(os.path.join(options.destdir, output_name), 'r') as f:
+                    p = linkdown.htmlhelper.HeadlineParser()
+                    p.feed(f.read().decode('utf-8'))
+                    lineargs[2] = p.title
+
+            db.append(lineargs)
+
+    with file(options.site_db, 'w') as f:
+        f.write(yaml.dump(db))
 
 def initialize(options):
     """
@@ -211,7 +232,7 @@ def _main():
     parser_ch = subparsers.add_parser('convert', help='convert documents to web pages')
     parser_ch.set_defaults(which='convert')
     parser_ch.add_argument('source', type=argparse.FileType('r'), help='Source file')
-    parser_ch.add_argument('output', type=argparse.FileType('w'), help='Output file (default: stdout)', nargs='?', default=sys.stdout)
+    parser_ch.add_argument('output', help='Output file')
     parser_ch.add_argument('--compress', help='Compress output', action='store_true')
     parser_ch.add_argument('--templates', help='Root directory for jinja2 (default: %(default)s)', default='./source')
     parser_ch.add_argument('--markdown-template', help='Jinja2 Template HTML for Markdown. Relative path from templates directory (default: %(default)s)', default='templates/markdown.html')
@@ -234,7 +255,7 @@ def _main():
     parser_all.add_argument('--exclude-suffix', default='.xcf,.psd,.DS_Store,.git,.hg,.svn', help='separated by comma defualt:%(default)s')
     parser_all.add_argument('--exclude-prefix', default='templates', help='separated by comma default:%(default)s')
     parser_all.add_argument('-c', '--compress', help='Compress output', action='store_true')
-    #parser_all.add_argument('--templates', help='Root directory for jinja2 (default: %(default)s)', default='./source')
+    parser_all.add_argument('--site-db', help='Site-map Database, required to generate xml sitemap (default: %(default)s)', default='./sitemap.yaml')
     parser_all.add_argument('--markdown-template', help='Jinja2 Template HTML for Markdown. Relative path from templates directory (default: %(default)s)', default='templates/markdown.html')
     parser_all.add_argument('-w', '--watch', action='store_true', help='Watch file changes and run convert automatically')
     parser_all.add_argument('-s', '--run-server', action='store_true', help='Run http server (only works with --watch)')

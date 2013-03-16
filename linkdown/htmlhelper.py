@@ -19,7 +19,9 @@ class HeadlineParser(HTMLParser.HTMLParser):
         self.is_h1 = False
         self.is_h2 = False
         self.is_h3 = False
+        self.is_title = False
         self.h1 = None
+        self.title = None
         self.headlines = list()
         self.attr_id = None
         
@@ -27,13 +29,16 @@ class HeadlineParser(HTMLParser.HTMLParser):
         self.is_h1 = False
         self.is_h2 = False
         self.is_h3 = False
+        self.is_title = False
 
         if tag == 'h1':
             self.is_h1 = True
-        if tag == 'h2':
+        elif tag == 'h2':
             self.is_h2 = True
-        if tag == 'h3':
+        elif tag == 'h3':
             self.is_h3 = True
+        elif tag == 'title':
+            self.is_title = True
 
         for a, v in attrs:
             if a == 'id':
@@ -43,10 +48,13 @@ class HeadlineParser(HTMLParser.HTMLParser):
         self.is_h1 = False
         self.is_h2 = False
         self.is_h3 = False
+        self.is_title = False
 
     def handle_data(self, data):
         if self.is_h1 and not self.h1:
             self.h1 = data
+        if self.is_title and not self.title:
+            self.title = data
 
         if self.is_h1:
             self.headlines.append(('h1', data, self.attr_id))

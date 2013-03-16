@@ -1,1 +1,310 @@
- <html lang="en"> <head> <meta charset="utf-8"> <title>linkdown : Linkdown</title> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="description" content=""> <meta name="author" content="">  <link href="./css/bootstrap.css" rel="stylesheet"> <style type="text/css"> body { padding-top: 60px; padding-bottom: 40px; } </style> <style type="text/css"> .markdown { margin-top: 10px; } .markdown h1, h2, h3 { padding:50px 0 0; margin:-50px 0 8px; } </style> <link href="./css/bootstrap-responsive.css" rel="stylesheet">   </head> <body style="margin-bottom: 40px;" data-spy="scroll" data-target=".navbar"> <div class="navbar navbar-inverse navbar-fixed-top"> <div class="navbar-inner"> <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> <a class="brand" href="./index.html">Linkdown</a> <div class="nav-collapse collapse"> <ul class="nav"> <li><a href="./index.html">Home</a></li> <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a> <ul class="dropdown-menu"> <li><a href="./about.html">About</a></li> <li class="divider"></li> <li><a href="./install.html">Install</a></li> <li><a href="./start.html">Start</a></li> <li><a href="./todo.html">ToDo</a></li> </ul> </li> <li><a href="./jinja2/index.html">Jinja2</a></li> <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Markdown <b class="caret"></b></a> <ul class="dropdown-menu"> <li><a href="./markdown/markdown.html">Markdown Syntax</a></li> <li class="divider"></li> <li><a href="./markdown/extensions.html">Markdown extensions</a></li> <li><a href="./markdown/template.html">Jinja2 template for Markdown</a></li> </ul> </li> <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">reStructuredText <b class="caret"></b></a> <ul class="dropdown-menu"> <li><a href="./rst/rst.html">A ReStructuredText Primer</a></li> <li class="divider"></li> <li><a href="./rst/quickref.html">Quick reStructuredText</a></li> <li><a href="./rst/cheatsheet.html">The reStructuredText Cheat Sheet: Syntax Reminders</a></li> </ul> </li> <li class="active pull-right"> </li> </ul> </div> </div> </div> </div> <div class="container"> <div style="text-align:right"> Read original source of this page  <a href="./../doc_src/about.rst" class="btn btn-info">View Source</a> </div> <div class="container markdown"> <div class="navbar navbar-fixed-bottom navbar2"> <div class="navbar-inner"> <div class="container"> <ul class="nav"> <a class="brand" href="#None">linkdown</a> <li><a href="#requirements">Requirements</a></li> <li><a href="#how-to-install">How to install</a></li> <li><a href="#quick-start">Quick Start</a></li> <li><a href="#license-copyright">License </a></li> <li><a href="#license-copyright"> Copyright</a></li> <li><a href="#references">References</a></li> </ul> </div> </div> </div> <div class="row"> <div class="span12"> <h1>linkdown</h1> <p>Build static webpages with <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>, <a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>, <a href="http://jinja.pocoo.org/docs/templates/">Jinja2</a> templates, <a href="http://lesscss.org/">LESS</a> or some recent tools.</p> <ul> <li>Built in Twitter Bootstrap template</li> <li>Built in web server for development</li> <li>linkdown watch your file changes and convert them automatically</li> <li>Automatic content list generator for Markdown and reStructuredText in Bootstrap template (Shown in bottom)</li> </ul> <a id="requirements"></a> <section> <h2>Requirements</h2> <ul> <li> <dl> <dt>Python</dt> <dd> <ul> <li>Python 2.7</li> <li>jinja2</li> <li>markdown</li> <li>watchdog</li> <li>Docutils</li> <li>rst2html5</li> </ul> </dd> </dl> </li> <li> <dl> <dt>Nodejs</dt> <dd> <ul> <li>less</li> <li>coffeescript</li> </ul> </dd> </dl> </li> </ul> </section> <a id="how-to-install"></a> <section> <h2>How to install</h2> <ol type="1"> <li> <dl> <dt>Install <a href="http://www.python.org/">Python 2.7</a> and <a href="http://nodejs.org/">NodeJS</a></dt> <dd> <ul> <li>I recommend to use <a href="http://www.macports.org/">MacPorts</a> or <a href="http://mxcl.github.com/homebrew/">Homebrew</a> to install them if you are Mac OS X user.</li> </ul> </dd> </dl> </li> <li> <dl> <dt>Install <a href="http://lesscss.org/">LESS</a> and <a href="http://coffeescript.org/">CoffeeScript</a></dt> <dd> <ul> <li>If you don't use <a href="http://lesscss.org/">LESS</a> and <a href="http://coffeescript.org/">CoffeeScript</a>, you don't have to instal them.</li> </ul> </dd> </dl> </li> <li> <dl> <dt>Install <a href="http://pypi.python.org/pypi/pip">pip</a></dt> <dd> <ul> <li>I recommend to use <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a> and <a href="http://pypi.python.org/pypi/virtualenvwrapper">virtualenvwrapper</a></li> </ul> </dd> </dl> </li> <li> <dl> <dt>Install linkdown</dt> <dd> <ul> <li>just <code>pipinstalllinkdown</code></li> <li>All dependencies will be installed automatically</li> </ul> </dd> </dl> </li> </ol> </section> <a id="quick-start"></a> <section> <h2>Quick Start</h2> <ol type="1"> <li> <p>Initialize project directory</p> <p><code>linkdowninit--templatebootstrapprojectdir</code></p> </li> <li> <p>Change directory</p> <p><code>cdprojectdir</code></p> </li> <li> <p>Run server, file observer and converter. linkdown detects file modification event and convert automatically.</p> <p><code>linkdownall-ws</code> or <code>make</code></p> </li> <li>Make your content under <code>source</code> directory</li> </ol> </section> <a id="license-copyright"></a> <section> <h2>License  Copyright</h2> <p><strong>Linkdown</strong></p> <p>Copyright (C) 2012 Y.OKAMURA</p> <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.</p> <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p> <p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p> <p><strong>Twitter Bootstrap</strong></p> <p>Copyright 2012 Twitter, Inc.</p> <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with the License. You may obtain a copy of the License in the LICENSE file, or at:</p> <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p> <p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p> <p><strong>jQuery</strong></p> <p>Copyright 2012 jQuery Foundation and other contributors</p> <p><a href="http://jquery.com/">http://jquery.com/</a></p> <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p> <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p> <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p> </section> <a id="references"></a> <section> <h2>References</h2> <p>Read jinja2, markdown, coffeescript and less documents to write. Of course, you can use plain JavaScript and CSS (But not plain HTML).</p> <ul> <li><a href="http://jinja.pocoo.org/docs/templates/">Jinja2</a></li> <li><a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a></li> <li><a href="http://lesscss.org/">LESS</a></li> <li><a href="http://coffeescript.org/">CoffeeScript</a></li> <li><a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a></li> <li><a href="http://twitter.github.com/bootstrap/">Bootstrap</a></li> </ul> </section> </div> </div> </div> <hr> <footer> <p> Y.Okamura 2012</p> </footer> </div>    <script src="./js/jquery-1.8.3.min.js"></script> <script src="./js/bootstrap.min.js"></script> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>linkdown : Linkdown</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    
+<style type="text/css">
+.markdown {
+    margin-top: 10px;
+}
+.markdown h1, h2, h3 {
+    padding:50px 0 0;
+    margin:-50px 0 8px;
+}
+</style>
+
+    <link href="./css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body 
+style="margin-bottom: 40px;" data-spy="scroll" data-target=".navbar"
+>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="./index.html">Linkdown</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="./index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="./about.html">About</a></li>
+                  <li class="divider"></li>
+                  <li><a href="./install.html">Install</a></li>
+                  <li><a href="./start.html">Start</a></li>
+                  <li><a href="./todo.html">ToDo</a></li>
+                </ul>
+              </li>
+
+              <li><a href="./jinja2/index.html">Jinja2</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Markdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="./markdown/markdown.html">Markdown Syntax</a></li>
+                  <li class="divider"></li>
+                  <li><a href="./markdown/extensions.html">Markdown extensions</a></li>
+                  <li><a href="./markdown/template.html">Jinja2 template for Markdown</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">reStructuredText <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="./rst/rst.html">A ReStructuredText Primer</a></li>
+                  <li class="divider"></li>
+                  <li><a href="./rst/quickref.html">Quick reStructuredText</a></li>
+                  <li><a href="./rst/cheatsheet.html">The reStructuredText Cheat Sheet: Syntax Reminders</a></li>
+                </ul>
+              </li>
+              <li class="active pull-right">
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div style="text-align:right">
+        Read original source of this page &rarr; <a href="./../doc_src/about.rst" class="btn btn-info">View Source</a>
+      </div>
+      
+<div class="container markdown">
+    <div class="navbar navbar-fixed-bottom navbar2">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            
+            
+            <a class="brand" href="#None">linkdown</a>
+            
+            
+            
+            
+            <li><a href="#requirements">Requirements</a></li>
+            
+            
+            
+            
+            
+            <li><a href="#how-to-install">How to install</a></li>
+            
+            
+            
+            
+            
+            <li><a href="#quick-start">Quick Start</a></li>
+            
+            
+            
+            
+            
+            <li><a href="#license-copyright">License </a></li>
+            
+            
+            
+            
+            
+            <li><a href="#license-copyright"> Copyright</a></li>
+            
+            
+            
+            
+            
+            <li><a href="#references">References</a></li>
+            
+            
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  
+  <div class="row">
+    <div class="span12">
+      
+    <h1>linkdown</h1>
+    <p>Build static webpages with <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>, <a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>, <a href="http://jinja.pocoo.org/docs/templates/">Jinja2</a> templates, <a href="http://lesscss.org/">LESS</a> or some recent tools.</p>
+    <ul>
+        <li>Built in Twitter Bootstrap template</li>
+        <li>Built in web server for development</li>
+        <li>linkdown watch your file changes and convert them automatically</li>
+        <li>Automatic content list generator for Markdown and reStructuredText in Bootstrap template (Shown in bottom)</li>
+    </ul>
+    <a id="requirements"></a>
+    <section>
+        <h2>Requirements</h2>
+        <ul>
+            <li>
+                <dl>
+                    <dt>Python</dt>
+                    <dd>
+                        <ul>
+                            <li>Python 2.7</li>
+                            <li>jinja2</li>
+                            <li>markdown</li>
+                            <li>watchdog</li>
+                            <li>Docutils</li>
+                            <li>rst2html5</li>
+                        </ul>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <dl>
+                    <dt>Nodejs</dt>
+                    <dd>
+                        <ul>
+                            <li>less</li>
+                            <li>coffeescript</li>
+                        </ul>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+    </section>
+    <a id="how-to-install"></a>
+    <section>
+        <h2>How to install</h2>
+        <ol type="1">
+            <li>
+                <dl>
+                    <dt>Install <a href="http://www.python.org/">Python 2.7</a> and <a href="http://nodejs.org/">NodeJS</a></dt>
+                    <dd>
+                        <ul>
+                            <li>I recommend to use <a href="http://www.macports.org/">MacPorts</a> or <a href="http://mxcl.github.com/homebrew/">Homebrew</a> to install them if you are Mac OS X user.</li>
+                        </ul>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <dl>
+                    <dt>Install <a href="http://lesscss.org/">LESS</a> and <a href="http://coffeescript.org/">CoffeeScript</a></dt>
+                    <dd>
+                        <ul>
+                            <li>If you don't use <a href="http://lesscss.org/">LESS</a> and <a href="http://coffeescript.org/">CoffeeScript</a>, you don't have to instal them.</li>
+                        </ul>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <dl>
+                    <dt>Install <a href="http://pypi.python.org/pypi/pip">pip</a></dt>
+                    <dd>
+                        <ul>
+                            <li>I recommend to use <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a> and <a href="http://pypi.python.org/pypi/virtualenvwrapper">virtualenvwrapper</a></li>
+                        </ul>
+                    </dd>
+                </dl>
+            </li>
+            <li>
+                <dl>
+                    <dt>Install linkdown</dt>
+                    <dd>
+                        <ul>
+                            <li>just <code>pip&nbsp;install&nbsp;linkdown</code></li>
+                            <li>All dependencies will be installed automatically</li>
+                        </ul>
+                    </dd>
+                </dl>
+            </li>
+        </ol>
+    </section>
+    <a id="quick-start"></a>
+    <section>
+        <h2>Quick Start</h2>
+        <ol type="1">
+            <li>
+                <p>Initialize project directory</p>
+                <p><code>linkdown&nbsp;init&nbsp;--template&nbsp;bootstrap&nbsp;projectdir</code></p>
+            </li>
+            <li>
+                <p>Change directory</p>
+                <p><code>cd&nbsp;projectdir</code></p>
+            </li>
+            <li>
+                <p>Run server, file observer and converter. linkdown detects file modification event and convert automatically.</p>
+                <p><code>linkdown&nbsp;all&nbsp;-ws</code> or <code>make</code></p>
+            </li>
+            <li>Make your content under <code>source</code> directory</li>
+        </ol>
+    </section>
+    <a id="license-copyright"></a>
+    <section>
+        <h2>License &amp; Copyright</h2>
+        <p><strong>Linkdown</strong></p>
+        <p>Copyright (C) 2012 Y.OKAMURA</p>
+        <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.</p>
+        <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+        <p>You should have received a copy of the GNU General Public License along with this program. If not, see &lt;<a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
+        <p><strong>Twitter Bootstrap</strong></p>
+        <p>Copyright 2012 Twitter, Inc.</p>
+        <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with the License. You may obtain a copy of the License in the LICENSE file, or at:</p>
+        <p>&lt;<a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>&gt;</p>
+        <p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
+        <p><strong>jQuery</strong></p>
+        <p>Copyright 2012 jQuery Foundation and other contributors</p>
+        <p>&lt;<a href="http://jquery.com/">http://jquery.com/</a>&gt;</p>
+        <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+        <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+        <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+    </section>
+    <a id="references"></a>
+    <section>
+        <h2>References</h2>
+        <p>Read jinja2, markdown, coffeescript and less documents to write. Of course, you can use plain JavaScript and CSS (But not plain HTML).</p>
+        <ul>
+            <li><a href="http://jinja.pocoo.org/docs/templates/">Jinja2</a></li>
+            <li><a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a></li>
+            <li><a href="http://lesscss.org/">LESS</a></li>
+            <li><a href="http://coffeescript.org/">CoffeeScript</a></li>
+            <li><a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a></li>
+            <li><a href="http://twitter.github.com/bootstrap/">Bootstrap</a></li>
+        </ul>
+    </section>
+    </div>
+  </div>
+</div>
+
+
+
+      <hr>
+
+      <footer>
+        <p>&copy; Y.Okamura 2012</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./js/jquery-1.8.3.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+
+  </body>
+</html>
